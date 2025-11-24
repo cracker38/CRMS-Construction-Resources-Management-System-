@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// Use environment variable for production, or relative path for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -32,7 +35,7 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken')
-        const response = await axios.post('/api/auth/refresh', { refreshToken })
+        const response = await axios.post(`${API_BASE_URL}/auth/refresh`, { refreshToken })
         const { accessToken } = response.data.data
 
         localStorage.setItem('token', accessToken)
