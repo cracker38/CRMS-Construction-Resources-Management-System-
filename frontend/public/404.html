@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRMS - Construction Resource Management System</title>
+    <script>
+      // Redirect to index.html for GitHub Pages
+      // This handles direct URL access to routes
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      var repoName = 'CRMS-Construction-Resources-Management-System-';
+      
+      // If we're not already at the root, redirect to index.html with hash
+      if (segments.length > 1 || (segments.length === 1 && segments[0] !== repoName)) {
+        var hash = window.location.hash || '#/';
+        window.location.replace(window.location.origin + '/' + repoName + '/index.html' + hash);
+      } else {
+        // Already at root, just redirect to index.html
+        window.location.replace(window.location.origin + '/' + repoName + '/index.html' + window.location.hash);
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p>Please enable JavaScript to use this application.</p>
+      <p><a href="/CRMS-Construction-Resources-Management-System-/index.html">Go to Home</a></p>
+    </noscript>
+  </body>
+</html>
+
