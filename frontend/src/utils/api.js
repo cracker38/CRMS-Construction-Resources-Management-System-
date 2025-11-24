@@ -5,12 +5,19 @@ import axios from 'axios'
 // Example: https://crms-backend.onrender.com/api
 let API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
-// If we're on GitHub Pages and no API URL is set, show helpful error
-if (typeof window !== 'undefined' && window.location.hostname.includes('github.io') && API_BASE_URL === '/api') {
-  console.error('⚠️ Backend API URL not configured!')
-  console.error('Please set VITE_API_URL environment variable to your Render backend URL')
-  console.error('Example: VITE_API_URL=https://crms-backend.onrender.com/api')
-  // Don't throw error, but log it - the user will see API errors
+// Detect if we're on GitHub Pages without a backend URL configured
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io')
+const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+
+if (isGitHubPages && API_BASE_URL === '/api') {
+  console.error('⚠️ CRITICAL: Backend API URL not configured!')
+  console.error('The frontend is deployed but cannot connect to the backend.')
+  console.error('Please:')
+  console.error('1. Deploy your backend to Render (https://render.com)')
+  console.error('2. Update frontend/vite.config.js with your Render backend URL')
+  console.error('3. Rebuild and redeploy: cd frontend && npm run deploy')
+  console.error('')
+  console.error('Example backend URL: https://crms-backend.onrender.com/api')
 }
 
 const api = axios.create({

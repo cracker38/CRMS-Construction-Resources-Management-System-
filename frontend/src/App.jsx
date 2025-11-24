@@ -15,6 +15,7 @@ import Timesheets from './pages/Timesheets'
 import Expenses from './pages/Expenses'
 import Suppliers from './pages/Suppliers'
 import Layout from './components/Layout'
+import BackendError from './components/BackendError'
 
 function PrivateRoute({ children }) {
   const { user, token } = useSelector((state) => state.auth)
@@ -23,9 +24,11 @@ function PrivateRoute({ children }) {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <>
+      <BackendError />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       <Route
         path="/"
         element={
@@ -48,6 +51,7 @@ function App() {
         <Route path="suppliers" element={<Suppliers />} />
       </Route>
     </Routes>
+    </>
   )
 }
 
